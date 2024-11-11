@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/common/screens/home_screen.dart';
 
+import '../features/description/cubit/description_cubit.dart';
+import '../features/description/screens/description_screen.dart';
 
 /* * * * * * * * * * * *
 *
@@ -15,42 +17,37 @@ import 'package:mobile/common/screens/home_screen.dart';
 *
 * * * * * * * * * * * */
 
-const String homeScreen = '/home';
-const String episodesRoute = '/episodes';
+const String homeRoute = '/home';
+const String descriptionRoute = '/episodes';
 
 final globalNavigationKey = GlobalKey<NavigatorState>(debugLabel: 'global');
 
 //todo: disabled for MVP
-// final _shellNavigatorFilesKey = GlobalKey<NavigatorState>(debugLabel: 'files');
 
 final goRouter = GoRouter(
   navigatorKey: globalNavigationKey,
-  initialLocation: homeScreen,
+  initialLocation: homeRoute,
   routes: [
     GoRoute(
-      path: homeScreen,
+      path: homeRoute,
       pageBuilder: (context, state) => _TransitionPage(
         key: state.pageKey,
         child: const HomeScreen(),
       ),
     ),
-    // GoRoute(
-    //   path: episodesRoute,
-    //   builder: (context, state) {
-    //     final extra = state.extra! as Map<dynamic, dynamic>;
-    //
-    //     return MultiBlocProvider(
-    //       providers: [
-    //         BlocProvider(
-    //           create: (context) => SummarizeBloc(),
-    //         ),
-    //       ],
-    //       child: EpisodeScreen(
-    //         item: extra['item'],
-    //       ),
-    //     );
-    //   },
-    // ),
+    GoRoute(
+      path: descriptionRoute,
+      builder: (context, state) {
+        final extra = state.extra! as Map<dynamic, dynamic>;
+
+        return BlocProvider(
+          create: (context) => DescriptionCubit(descriptionRepository: RepositoryProvider.of(context)),
+          child: DescriptionScreen(
+            artwork: extra['artwork'],
+          ),
+        );
+      },
+    ),
   ],
 );
 

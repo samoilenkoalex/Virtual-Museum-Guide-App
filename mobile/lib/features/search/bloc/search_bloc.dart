@@ -2,29 +2,28 @@ import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 
 import '../../../common/network/exceptions/api_exceptions.dart';
-import '../../../services/api_service.dart';
 import '../models/artwork_model.dart';
+import '../repositories/search_repository.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  SearchBloc() : super(const SearchInitial()) {
+  final SearchRepository searchRepository;
+
+  SearchBloc({required this.searchRepository}) : super(const SearchInitial()) {
     on<FetchSearchResult>(_onFetchSearchResult);
     on<SearchInputChanged>(_onSearchInputChanged);
   }
-
-  final ApiService apiService = GetIt.I<ApiService>();
 
   Future<void> _onFetchSearchResult(FetchSearchResult event, Emitter<SearchState> emit) async {
     final currentQuery = state.query;
     emit(SearchLoading(query: currentQuery));
 
     try {
-      final result = await apiService.searchTopic(query: currentQuery);
+      final result = await searchRepository.fetchSearchResult(currentQuery);
 
       final List<Artwork> resultsWithImages = result.result.results
           .where(
