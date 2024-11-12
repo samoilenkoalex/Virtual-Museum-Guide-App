@@ -16,10 +16,10 @@
 ## Preview
 
 1. Search artwork
-   <img src="https://gitlab.extrawest.com/i-training/flutter/virtual-museum-guide-app/-/blob/development/demo/search.gif" alt="Preview" width="400"/>
+   <img src="https://github.com/extrawest/Virtual-Museum-Guide-App/blob/main/demo/search.gif" alt="Preview" width="400"/>
 
 2. Generated description 
-   <img src="https://gitlab.extrawest.com/i-training/flutter/virtual-museum-guide-app/-/blob/development/demo/description.gif" alt="Preview" width="400"/>
+   <img src="https://github.com/extrawest/Virtual-Museum-Guide-App/blob/main/demo/description" alt="Preview" width="400"/>
 
 
 ## Installing:
