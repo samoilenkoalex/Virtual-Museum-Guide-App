@@ -1,10 +1,10 @@
 import Together from 'together-ai';
 
-export class TogatherAiClient {
+export class TogetherAiClient {
     constructor(apiKey) {
         if (!apiKey) {
             throw new Error(
-                'TogatherAi API key is missing. Please set TOGETHER_API_KEY in environment variables.'
+                'TogetherAi API key is missing. Please set TOGETHER_API_KEY in environment variables.'
             );
         }
         this.togetherClient = new Together({ apiKey });
@@ -14,13 +14,24 @@ export class TogatherAiClient {
         return this.togetherClient;
     }
 
-    async getCompletion(content) {
+    async getCompletion(img_url) {
         try {
             const response = await this.togetherClient.chat.completions.create({
                 messages: [
                     {
                         role: 'user',
-                        content: content,
+                        content: [
+                            {
+                                type: 'text',
+                                text: 'describe image: its author, historical period, color composition, style.',
+                            },
+                            {
+                                type: 'image_url',
+                                image_url: {
+                                    url: img_url,
+                                },
+                            },
+                        ],
                     },
                 ],
                 model: 'meta-llama/Llama-3.2-90B-Vision-Instruct-Turbo',
@@ -34,6 +45,6 @@ export class TogatherAiClient {
     }
 }
 
-export function initTogatherAiClient(apiKey) {
-    return new TogatherAiClient(apiKey);
+export function initTogetherAiClient(apiKey) {
+    return new TogetherAiClient(apiKey);
 }

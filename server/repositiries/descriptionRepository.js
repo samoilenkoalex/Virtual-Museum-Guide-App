@@ -1,18 +1,17 @@
 import 'dotenv/config';
-import { TogatherAiClient } from '../clients/togethrAiClient.js';
+import { TogetherAiClient } from '../clients/togethrAiClient.js';
 
 export class DescriptionRepository {
-    constructor(togatherAiClient) {
-        if (!(togatherAiClient instanceof TogatherAiClient)) {
+    constructor(togetherAiClient) {
+        if (!(togetherAiClient instanceof TogetherAiClient)) {
             throw new Error('Invalid togatherAiClient instance');
         }
-        this.togatherAiClient = togatherAiClient;
+        this.togatherAiClient = togetherAiClient;
     }
 
-    async getDescriptions() {
+    async getDescriptions(img_url) {
         try {
-            const content = 'What are some fun things to do in New York?';
-            return await this.togatherAiClient.getCompletion(content);
+            return await this.togatherAiClient.getCompletion(img_url);
         } catch (error) {
             console.error('Error in DescriptionRepository:', error);
             throw error;
@@ -20,7 +19,7 @@ export class DescriptionRepository {
     }
 }
 // Create and export a default instance
-const defaulTogatherAiClient = new TogatherAiClient(
+const defaulTogetherAiClient = new TogetherAiClient(
     process.env.TOGETHER_API_KEY || ''
 );
-export default new DescriptionRepository(defaulTogatherAiClient);
+export default new DescriptionRepository(defaulTogetherAiClient);

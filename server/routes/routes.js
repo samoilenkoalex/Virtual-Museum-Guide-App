@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import { DescriptionRepository } from '../repositiries/descriptionRepository.js';
 
 import { MuseumRepository } from '../repositiries/museumRepository.js';
-import { TogatherAiClient } from '../clients/togethrAiClient.js';
+import { TogetherAiClient } from '../clients/togethrAiClient.js';
 import { MuseumApiClient } from '../clients/museumApiClient.js';
 
 dotenv.config();
@@ -11,13 +11,16 @@ const router = express.Router();
 
 router.post('/description', async (req, res) => {
     try {
-        const togatherAiClient = new TogatherAiClient(
+        const togetherAiClient = new TogetherAiClient(
             process.env.TOGETHER_API_KEY
         );
         const descriptionRepository = new DescriptionRepository(
-            togatherAiClient
+            togetherAiClient
         );
-        const description = await descriptionRepository.getDescriptions();
+        const description = await descriptionRepository.getDescriptions(
+            req.body.img_url
+        );
+
         res.json({ message: description });
     } catch (error) {
         console.error('Error:', error);
