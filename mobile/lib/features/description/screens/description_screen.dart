@@ -25,7 +25,7 @@ class DescriptionScreenState extends State<DescriptionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Museum Screen'),
+        title: Text(widget.artwork.title),
         leading: IconButton(
             onPressed: () {
               context.pop();
