@@ -16,10 +16,12 @@
 ## Preview
 
 1. Search artwork
+   
    <img src="https://github.com/extrawest/Virtual-Museum-Guide-App/blob/main/demo/search.gif" alt="Preview" width="400"/>
 
-2. Generated description 
-   <img src="https://github.com/extrawest/Virtual-Museum-Guide-App/blob/main/demo/description" alt="Preview" width="400"/>
+2. Generated description
+   
+   <img src="https://github.com/extrawest/Virtual-Museum-Guide-App/blob/main/demo/description.gif" alt="Preview" width="400"/>
 
 
 ## Installing:
